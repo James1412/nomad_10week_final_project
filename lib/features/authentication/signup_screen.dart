@@ -1,9 +1,11 @@
 import 'package:final_project/constants/gaps.dart';
 import 'package:final_project/constants/sizes.dart';
 import 'package:final_project/features/authentication/view_models/signup_view_model.dart';
+import 'package:final_project/features/home/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 
 class SignupScreen extends ConsumerStatefulWidget {
   static const String routeUrl = '/signup';
@@ -79,13 +81,18 @@ class SignupScreenState extends ConsumerState<SignupScreen> {
     });
   }
 
-  void _onCreateAccountTap() {
+  Future<void> _onCreateAccountTap() async {
     if (_email.isEmpty || _password.isEmpty || !_isValid) return;
     ref.read(signUpForm.notifier).state = {
       "email": _email,
       "password": _password,
     };
-    ref.read(signUpProvider.notifier).signUp();
+    await ref.read(signUpProvider.notifier).signUp(context);
+    if (ref.watch(signUpProvider).hasError) {
+      return;
+    }
+    if (!mounted) return;
+    context.go(HomeScreen.routeUrl);
   }
 
   @override

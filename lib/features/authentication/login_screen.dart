@@ -1,5 +1,6 @@
 import 'package:final_project/constants/gaps.dart';
 import 'package:final_project/constants/sizes.dart';
+import 'package:final_project/features/authentication/view_models/login_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -17,32 +18,14 @@ class SignupScreenState extends ConsumerState<LoginScreen> {
   final Map<String, String> _formData = {};
   bool _isObsecure = false;
 
-  String? _emailValidator(String? value) {
-    final regExp = RegExp(
-      r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+",
-    );
-    if (value != null) {
-      if (!regExp.hasMatch(value)) {
-        return "Email not valid";
-      }
-    }
-    return null;
-  }
-
-  String? _passwordValidator(String? value) {
-    if (value != null) {
-      if (value.length < 8) {
-        return "Password must be longer than 8 characters";
-      }
-    }
-    return null;
-  }
-
   void _onContinueTap() {
     if (_formKey.currentState != null) {
-      if (_formKey.currentState!.validate()) {
-        _formKey.currentState!.save();
-      }
+      _formKey.currentState!.save();
+      ref.read(loginProvider.notifier).login(
+            _formData['email']!,
+            _formData['password']!,
+            context,
+          );
     }
   }
 
@@ -74,7 +57,6 @@ class SignupScreenState extends ConsumerState<LoginScreen> {
                 TextFormField(
                   cursorColor: Colors.black,
                   keyboardType: TextInputType.emailAddress,
-                  validator: (value) => _emailValidator(value),
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
                       borderSide: const BorderSide(
@@ -94,7 +76,6 @@ class SignupScreenState extends ConsumerState<LoginScreen> {
                 TextFormField(
                   obscureText: _isObsecure ? false : true,
                   cursorColor: Colors.black,
-                  validator: (value) => _passwordValidator(value),
                   decoration: InputDecoration(
                     suffixIcon: GestureDetector(
                       onTap: _onPasswordEyeTap,

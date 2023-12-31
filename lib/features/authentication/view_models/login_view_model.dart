@@ -5,22 +5,21 @@ import 'package:final_project/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class SignupViewModel extends AsyncNotifier<void> {
+class LoginViewModel extends AsyncNotifier<void> {
   late final AuthenticationRepository _repository;
   @override
   FutureOr<void> build() {
     _repository = ref.read(authRepo);
   }
 
-  Future<void> signUp(BuildContext context) async {
+  Future<void> login(
+    String email,
+    String password,
+    BuildContext context,
+  ) async {
     state = const AsyncValue.loading();
-    final form = ref.read(signUpForm);
-
     state = await AsyncValue.guard(
-      () async => await _repository.signUp(
-        form['email'],
-        form['password'],
-      ),
+      () async => await _repository.signIn(email, password),
     );
     if (state.hasError) {
       if (!context.mounted) return;
@@ -29,7 +28,6 @@ class SignupViewModel extends AsyncNotifier<void> {
   }
 }
 
-final signUpForm = StateProvider((ref) => {});
-final signUpProvider = AsyncNotifierProvider<SignupViewModel, void>(
-  () => SignupViewModel(),
+final loginProvider = AsyncNotifierProvider<LoginViewModel, void>(
+  () => LoginViewModel(),
 );
