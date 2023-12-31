@@ -50,7 +50,12 @@ class SignupScreenState extends ConsumerState<LoginScreen> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: const Text("Login"),
+          title: const Text(
+            "Login",
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ),
         body: Padding(
           padding: const EdgeInsets.symmetric(

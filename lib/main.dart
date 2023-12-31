@@ -22,17 +22,16 @@ class MoodTrackerApp extends ConsumerWidget {
       routerConfig: ref.watch(routerProvider),
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        canvasColor: Colors.white,
-        scaffoldBackgroundColor: Colors.white,
+        scaffoldBackgroundColor: const Color.fromARGB(255, 204, 189, 167),
         appBarTheme: const AppBarTheme(
-          color: Colors.white,
-          shadowColor: Colors.white,
-          surfaceTintColor: Colors.white,
+          color: Color.fromARGB(255, 204, 189, 167),
+          shadowColor: Colors.transparent,
+          surfaceTintColor: Colors.transparent,
         ),
         bottomAppBarTheme: const BottomAppBarTheme(
-          color: Colors.white,
-          shadowColor: Colors.white,
-          surfaceTintColor: Colors.white,
+          color: Color.fromARGB(255, 204, 189, 167),
+          shadowColor: Colors.transparent,
+          surfaceTintColor: Colors.transparent,
         ),
         inputDecorationTheme: InputDecorationTheme(
           focusedBorder: OutlineInputBorder(

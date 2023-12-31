@@ -112,7 +112,12 @@ class SignupScreenState extends ConsumerState<SignupScreen> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: const Text("Sign up"),
+          title: const Text(
+            "Sign up",
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ),
         body: Padding(
           padding: const EdgeInsets.symmetric(
