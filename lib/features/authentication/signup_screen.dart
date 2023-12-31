@@ -198,6 +198,8 @@ class SignupScreenState extends ConsumerState<SignupScreen> {
                     "Create account",
                     style: TextStyle(
                       color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                      fontSize: Sizes.size16,
                     ),
                   ),
                 ),

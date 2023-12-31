@@ -1,9 +1,11 @@
 import 'package:final_project/constants/gaps.dart';
 import 'package:final_project/constants/sizes.dart';
 import 'package:final_project/features/authentication/view_models/login_view_model.dart';
+import 'package:final_project/features/home/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   static const String routeUrl = '/login';
@@ -26,6 +28,11 @@ class SignupScreenState extends ConsumerState<LoginScreen> {
             _formData['password']!,
             context,
           );
+      if (ref.watch(loginProvider).hasError) {
+        return;
+      }
+      if (!mounted) return;
+      context.go(HomeScreen.routeUrl);
     }
   }
 
@@ -120,6 +127,8 @@ class SignupScreenState extends ConsumerState<LoginScreen> {
                 child: Text(
                   "Continue",
                   style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: Sizes.size16,
                     color: Colors.white,
                   ),
                 ),
