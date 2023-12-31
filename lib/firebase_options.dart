@@ -62,11 +62,11 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyD6oUl-p4n8Wx_Ni6R8BAnptK0crmIZh1Y',
-    appId: '1:241778347714:ios:e6772b7f34d801cf45b55b',
+    appId: '1:241778347714:ios:2b5e3968de06c7d745b55b',
     messagingSenderId: '241778347714',
     projectId: 'nomad-10weeks-final-proje',
     storageBucket: 'nomad-10weeks-final-proje.appspot.com',
-    iosBundleId: 'com.example.finalProject',
+    iosBundleId: 'com.tistory.jastory.finalProject',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(

@@ -1,4 +1,4 @@
-import 'package:final_project/features/authentication/signup_screen.dart';
+import 'package:final_project/constants/sizes.dart';
 import 'package:final_project/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -15,6 +15,31 @@ class MoodTrackerApp extends ConsumerWidget {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       routerConfig: router,
+      theme: ThemeData(
+        canvasColor: Colors.white,
+        scaffoldBackgroundColor: Colors.white,
+        appBarTheme: const AppBarTheme(
+          color: Colors.white,
+          shadowColor: Colors.white,
+          surfaceTintColor: Colors.white,
+        ),
+        bottomAppBarTheme: const BottomAppBarTheme(
+          color: Colors.white,
+          shadowColor: Colors.white,
+          surfaceTintColor: Colors.white,
+        ),
+        inputDecorationTheme: InputDecorationTheme(
+          focusedBorder: OutlineInputBorder(
+            borderSide: const BorderSide(
+              width: 1.5,
+              color: Colors.black,
+            ),
+            borderRadius: BorderRadius.circular(
+              Sizes.size10,
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
