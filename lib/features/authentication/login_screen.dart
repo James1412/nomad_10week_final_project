@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
+  static const String routeUrl = '/login';
   const LoginScreen({super.key});
 
   @override
@@ -72,7 +73,7 @@ class SignupScreenState extends ConsumerState<LoginScreen> {
                 Gaps.v64,
                 TextFormField(
                   cursorColor: Colors.black,
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  keyboardType: TextInputType.emailAddress,
                   validator: (value) => _emailValidator(value),
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
@@ -93,7 +94,6 @@ class SignupScreenState extends ConsumerState<LoginScreen> {
                 TextFormField(
                   obscureText: _isObsecure ? false : true,
                   cursorColor: Colors.black,
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
                   validator: (value) => _passwordValidator(value),
                   decoration: InputDecoration(
                     suffixIcon: GestureDetector(
