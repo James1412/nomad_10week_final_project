@@ -1,4 +1,5 @@
 import 'package:final_project/constants/sizes.dart';
+import 'package:final_project/features/moods/models/auto_scroll_up_model.dart';
 import 'package:final_project/features/moods/private_mood_screen.dart';
 import 'package:final_project/features/moods/public_mood_screen.dart';
 import 'package:final_project/features/main_navigation/widgets/nav_tab.dart';
@@ -30,6 +31,10 @@ class _MainNavigationScreenState extends ConsumerState<MainNavigationScreen> {
 
   void onTap(int index) {
     context.go("/${_tabs[index]}");
+    if (index == 0 && _selectedIndex == 0) {
+      //scroll up
+      ref.read(scrollControllerProvider).autoScrollUp();
+    }
     setState(() {
       _selectedIndex = index;
     });
@@ -55,9 +60,11 @@ class _MainNavigationScreenState extends ConsumerState<MainNavigationScreen> {
         ],
       ),
       bottomNavigationBar: BottomAppBar(
+        height: Sizes.size60,
         elevation: 5,
         surfaceTintColor: Colors.black,
         child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           mainAxisSize: MainAxisSize.max,
           children: [
