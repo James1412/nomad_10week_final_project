@@ -25,10 +25,9 @@ class _PublicMoodScreenState extends ConsumerState<PublicMoodScreen> {
           MoodTile(
             mood: "😁",
             text:
-                "Hi this is very long test mood sentences. It's to describe my emotion today and what I did today and it is going to be really loooooooooong",
+                "Hi this is very long test mood sentences. It's to describe my emotion today and what I did today and it is going to be really loooooooooong, Hi this is very long test mood sentences. It's to describe my emotion today and what I did today and it is going to be really loooooooooong",
             time: "13 min ago",
             likes: '13',
-            username: 'username1',
           ),
           MoodTile(
             mood: "😁",
@@ -36,7 +35,6 @@ class _PublicMoodScreenState extends ConsumerState<PublicMoodScreen> {
                 "Hi this is very long test mood sentences. It's to describe my emotion today and what I did today and it is going to be really loooooooooong",
             time: "13 min ago",
             likes: '13',
-            username: 'username1',
           ),
           MoodTile(
             mood: "😁",
@@ -44,7 +42,6 @@ class _PublicMoodScreenState extends ConsumerState<PublicMoodScreen> {
                 "Hi this is very long test mood sentences. It's to describe my emotion today and what I did today and it is going to be really loooooooooong",
             time: "13 min ago",
             likes: '13',
-            username: 'username1',
           ),
         ],
       ),

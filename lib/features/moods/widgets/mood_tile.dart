@@ -9,13 +9,11 @@ class MoodTile extends ConsumerStatefulWidget {
   final String text;
   final String time;
   final String likes;
-  final String username;
   const MoodTile({
     required this.mood,
     required this.text,
     required this.time,
     required this.likes,
-    required this.username,
     super.key,
   });
 
@@ -25,6 +23,7 @@ class MoodTile extends ConsumerStatefulWidget {
 
 class _MoodTileState extends ConsumerState<MoodTile> {
   bool isLiked = false;
+  bool _expandText = false;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -52,19 +51,27 @@ class _MoodTileState extends ConsumerState<MoodTile> {
             ),
           ),
           Gaps.v5,
-          Text(
-            widget.text,
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-            style: const TextStyle(
-              fontSize: Sizes.size16,
+          GestureDetector(
+            onTap: () {
+              setState(() {
+                _expandText = !_expandText;
+              });
+            },
+            child: Text(
+              widget.text,
+              maxLines: _expandText ? null : 2,
+              overflow: _expandText ? null : TextOverflow.ellipsis,
+              style: const TextStyle(
+                fontSize: Sizes.size16,
+              ),
             ),
           ),
-          Gaps.v8,
+          Gaps.v9,
           Opacity(
             opacity: 0.6,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   widget.time,
@@ -99,8 +106,6 @@ class _MoodTileState extends ConsumerState<MoodTile> {
               ],
             ),
           ),
-          Gaps.v8,
-          Text(widget.username),
           Gaps.v10,
         ],
       ),

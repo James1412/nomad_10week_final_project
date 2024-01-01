@@ -11,46 +11,56 @@ class SettingsScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      body: Center(
-        child: ListTile(
-          title: const Text(
-            "Log out (IOS)",
-            style: TextStyle(
-              color: Colors.red,
-            ),
+      appBar: AppBar(
+        title: const Text("Settings"),
+      ),
+      body: Column(
+        children: [
+          SwitchListTile.adaptive(
+            title: const Text("Dark mode"),
+            value: true,
+            onChanged: (value) {},
           ),
-          onTap: () {
-            showCupertinoDialog(
-              context: context,
-              builder: (context) {
-                return CupertinoAlertDialog(
-                  title: const Text("Leave"),
-                  actions: [
-                    CupertinoDialogAction(
-                      onPressed: () {
-                        Navigator.of(context).pop(context);
-                      },
-                      child: const Text(
-                        "No",
-                        style: TextStyle(
-                          color: Colors.black,
+          ListTile(
+            title: const Text(
+              "Log out (IOS)",
+              style: TextStyle(
+                color: Colors.red,
+              ),
+            ),
+            onTap: () {
+              showCupertinoDialog(
+                context: context,
+                builder: (context) {
+                  return CupertinoAlertDialog(
+                    title: const Text("Leave"),
+                    actions: [
+                      CupertinoDialogAction(
+                        onPressed: () {
+                          Navigator.of(context).pop(context);
+                        },
+                        child: const Text(
+                          "No",
+                          style: TextStyle(
+                            color: Colors.black,
+                          ),
                         ),
                       ),
-                    ),
-                    CupertinoDialogAction(
-                      isDestructiveAction: true,
-                      child: const Text("Yes"),
-                      onPressed: () {
-                        ref.read(authRepo).signOut();
-                        context.go('/');
-                      },
-                    ),
-                  ],
-                );
-              },
-            );
-          },
-        ),
+                      CupertinoDialogAction(
+                        isDestructiveAction: true,
+                        child: const Text("Yes"),
+                        onPressed: () {
+                          ref.read(authRepo).signOut();
+                          context.go('/');
+                        },
+                      ),
+                    ],
+                  );
+                },
+              );
+            },
+          ),
+        ],
       ),
     );
   }
