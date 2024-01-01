@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-class HomeScreen extends ConsumerWidget {
-  static const routeUrl = '/home';
-  const HomeScreen({super.key});
+class SettingsScreen extends ConsumerWidget {
+  static const routeUrl = '/settings';
+  const SettingsScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
