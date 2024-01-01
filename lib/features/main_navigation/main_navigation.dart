@@ -2,7 +2,6 @@ import 'package:final_project/constants/sizes.dart';
 import 'package:final_project/features/moods/private_mood_screen.dart';
 import 'package:final_project/features/moods/public_mood_screen.dart';
 import 'package:final_project/features/main_navigation/widgets/nav_tab.dart';
-import 'package:final_project/features/setting/settings_screen.dart';
 import 'package:final_project/features/write_mood/mood_writing_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -11,7 +10,7 @@ import 'package:go_router/go_router.dart';
 
 class MainNavigationScreen extends ConsumerStatefulWidget {
   const MainNavigationScreen({required this.tab, super.key});
-  final tab;
+  final String tab;
 
   static const routeUrl = '/public';
   static const routeName = 'mainNavigation';
@@ -60,21 +59,31 @@ class _MainNavigationScreenState extends ConsumerState<MainNavigationScreen> {
         surfaceTintColor: Colors.black,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisSize: MainAxisSize.max,
           children: [
-            NavTab(
-              icon: FontAwesomeIcons.house,
-              iconSize: Sizes.size24,
-              onTap: () => onTap(0),
+            Expanded(
+              child: NavTab(
+                icon: FontAwesomeIcons.house,
+                iconSize: Sizes.size24,
+                onTap: () => onTap(0),
+                isSelected: _selectedIndex == 0,
+              ),
             ),
-            NavTab(
-              icon: FontAwesomeIcons.pencil,
-              iconSize: Sizes.size32,
-              onTap: () => onTap(1),
+            Expanded(
+              child: NavTab(
+                icon: FontAwesomeIcons.pencil,
+                iconSize: Sizes.size32,
+                onTap: () => onTap(1),
+                isSelected: _selectedIndex == 1,
+              ),
             ),
-            NavTab(
-              icon: FontAwesomeIcons.gear,
-              iconSize: Sizes.size24,
-              onTap: () => onTap(2),
+            Expanded(
+              child: NavTab(
+                icon: FontAwesomeIcons.solidUser,
+                iconSize: Sizes.size24,
+                onTap: () => onTap(2),
+                isSelected: _selectedIndex == 2,
+              ),
             ),
           ],
         ),
