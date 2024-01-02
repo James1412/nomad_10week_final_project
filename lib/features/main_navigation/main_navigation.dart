@@ -1,8 +1,8 @@
 import 'package:final_project/constants/sizes.dart';
-import 'package:final_project/features/moods/models/auto_scroll_up_model.dart';
 import 'package:final_project/features/moods/private_mood_screen.dart';
 import 'package:final_project/features/moods/public_mood_screen.dart';
 import 'package:final_project/features/main_navigation/widgets/nav_tab.dart';
+import 'package:final_project/features/moods/view_models/auto_scroll_up_vm.dart';
 import 'package:final_project/features/write_mood/mood_writing_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -29,11 +29,11 @@ class _MainNavigationScreenState extends ConsumerState<MainNavigationScreen> {
   ];
   late int _selectedIndex = _tabs.indexOf(widget.tab);
 
-  void onTap(int index) {
+  Future<void> onTap(int index) async {
     context.go("/${_tabs[index]}");
     if (index == 0 && _selectedIndex == 0) {
       //scroll up
-      ref.read(scrollControllerProvider).autoScrollUp();
+      await ref.read(scrollControllerNotifierProvider).autoScrollUp();
     }
     setState(() {
       _selectedIndex = index;
@@ -60,34 +60,36 @@ class _MainNavigationScreenState extends ConsumerState<MainNavigationScreen> {
         ],
       ),
       bottomNavigationBar: BottomAppBar(
-        height: Sizes.size60,
+        height: Sizes.size52,
         elevation: 5,
         surfaceTintColor: Colors.black,
+        padding: const EdgeInsets.only(
+          top: Sizes.size20,
+        ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
           mainAxisSize: MainAxisSize.max,
           children: [
             Expanded(
               child: NavTab(
+                isWrite: false,
                 icon: FontAwesomeIcons.house,
-                iconSize: Sizes.size24,
                 onTap: () => onTap(0),
                 isSelected: _selectedIndex == 0,
               ),
             ),
             Expanded(
               child: NavTab(
+                isWrite: true,
                 icon: FontAwesomeIcons.pencil,
-                iconSize: Sizes.size32,
                 onTap: () => onTap(1),
                 isSelected: _selectedIndex == 1,
               ),
             ),
             Expanded(
               child: NavTab(
+                isWrite: false,
                 icon: FontAwesomeIcons.solidUser,
-                iconSize: Sizes.size24,
                 onTap: () => onTap(2),
                 isSelected: _selectedIndex == 2,
               ),

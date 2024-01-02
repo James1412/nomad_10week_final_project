@@ -47,7 +47,7 @@ class _MoodTileState extends ConsumerState<MoodTile> {
             "Mood: ${widget.mood}",
             style: const TextStyle(
               fontWeight: FontWeight.w600,
-              fontSize: Sizes.size18,
+              fontSize: Sizes.size24,
             ),
           ),
           Gaps.v5,
@@ -62,7 +62,7 @@ class _MoodTileState extends ConsumerState<MoodTile> {
               maxLines: _expandText ? null : 2,
               overflow: _expandText ? null : TextOverflow.ellipsis,
               style: const TextStyle(
-                fontSize: Sizes.size16,
+                fontSize: Sizes.size18,
               ),
             ),
           ),

@@ -1,16 +1,17 @@
+import 'package:final_project/constants/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class NavTab extends ConsumerWidget {
   final IconData icon;
-  final double iconSize;
   final Function onTap;
   final bool isSelected;
+  final bool isWrite;
   const NavTab({
+    required this.isWrite,
     required this.isSelected,
     required this.onTap,
     required this.icon,
-    required this.iconSize,
     super.key,
   });
 
@@ -20,11 +21,16 @@ class NavTab extends ConsumerWidget {
       onTap: () => onTap(),
       child: Container(
         height: double.maxFinite,
-        color: Colors.transparent,
-        child: Icon(
-          icon,
-          size: iconSize,
-          color: isSelected ? Colors.black : Colors.black45,
+        decoration: const BoxDecoration(
+          color: Colors.transparent,
+        ),
+        child: AnimatedOpacity(
+          duration: const Duration(milliseconds: 300),
+          opacity: isSelected ? 1 : 0.3,
+          child: Icon(
+            icon,
+            size: Sizes.size28,
+          ),
         ),
       ),
     );

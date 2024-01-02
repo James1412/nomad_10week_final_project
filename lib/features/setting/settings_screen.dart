@@ -16,24 +16,31 @@ class SettingsScreen extends ConsumerWidget {
       ),
       body: Column(
         children: [
+          ListTile(
+            title: const Text("Licenses"),
+            onTap: () => showAboutDialog(
+              context: context,
+            ),
+          ),
           SwitchListTile.adaptive(
-            title: const Text("Dark mode"),
+            title: const Text(
+              "Dark mode",
+              style: TextStyle(),
+            ),
             value: true,
             onChanged: (value) {},
           ),
           ListTile(
             title: const Text(
-              "Log out (IOS)",
-              style: TextStyle(
-                color: Colors.red,
-              ),
+              "Log out",
+              style: TextStyle(),
             ),
             onTap: () {
               showCupertinoDialog(
                 context: context,
                 builder: (context) {
                   return CupertinoAlertDialog(
-                    title: const Text("Leave"),
+                    title: const Text("Leave the app?"),
                     actions: [
                       CupertinoDialogAction(
                         onPressed: () {

@@ -43,6 +43,7 @@ dependencies:
   go_router: 6.0.2
   shared_preferences: ^2.2.2
   font_awesome_flutter: ^10.6.0
+  emoji_picker_flutter: ^1.6.3
 
 dev_dependencies:
   flutter_test:
