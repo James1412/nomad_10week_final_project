@@ -29,7 +29,7 @@ class NavTab extends ConsumerWidget {
           opacity: isSelected ? 1 : 0.3,
           child: Icon(
             icon,
-            size: Sizes.size28,
+            size: Sizes.size24,
           ),
         ),
       ),

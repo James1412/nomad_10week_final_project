@@ -4,15 +4,16 @@ import 'package:final_project/constants/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class MoodWritingScreen extends ConsumerStatefulWidget {
-  const MoodWritingScreen({super.key});
+class EditMoodScreen extends ConsumerStatefulWidget {
+  static const routeUrl = '/edit';
+  const EditMoodScreen({super.key});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
       _MoodWritingScreenState();
 }
 
-class _MoodWritingScreenState extends ConsumerState<MoodWritingScreen> {
+class _MoodWritingScreenState extends ConsumerState<EditMoodScreen> {
   final TextEditingController _controller = TextEditingController();
   double moodLevel = 0;
   List<List<dynamic>> emojis = [
@@ -84,7 +85,21 @@ class _MoodWritingScreenState extends ConsumerState<MoodWritingScreen> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: const Text("Your mood today"),
+          title: const Text("Edit your mood"),
+          actions: const [
+            Padding(
+              padding: EdgeInsets.only(
+                right: 10,
+              ),
+              child: Text(
+                "delete",
+                style: TextStyle(
+                  color: Colors.red,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ),
+          ],
         ),
         body: Padding(
           padding: const EdgeInsets.symmetric(

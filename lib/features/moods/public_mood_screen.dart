@@ -1,5 +1,5 @@
 import 'package:final_project/features/moods/view_models/auto_scroll_up_vm.dart';
-import 'package:final_project/features/moods/widgets/mood_tile.dart';
+import 'package:final_project/features/moods/widgets/public_mood_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -30,39 +30,39 @@ class _PublicMoodScreenState extends ConsumerState<PublicMoodScreen> {
             controller:
                 ref.watch(scrollControllerNotifierProvider).scrollController,
             children: const [
-              MoodTile(
+              PublicMoodTile(
                 mood: "😁",
                 text:
                     "Hi this is very long test mood sentences. It's to describe my emotion today and what I did today and it is going to be really loooooooooong, Hi this is very long test mood sentences. It's to describe my emotion today and what I did today and it is going to be really loooooooooong",
-                time: "13 min ago",
+                time: "Jan 3",
                 likes: '13',
               ),
-              MoodTile(
+              PublicMoodTile(
                 mood: "😁",
                 text:
                     "Hi this is very long test mood sentences. It's to describe my emotion today and what I did today and it is going to be really loooooooooong, Hi this is very long test mood sentences. It's to describe my emotion today and what I did today and it is going to be really loooooooooong",
-                time: "13 min ago",
+                time: "Jan 3",
                 likes: '13',
               ),
-              MoodTile(
+              PublicMoodTile(
                 mood: "😁",
                 text:
                     "Hi this is very long test mood sentences. It's to describe my emotion today and what I did today and it is going to be really loooooooooong, Hi this is very long test mood sentences. It's to describe my emotion today and what I did today and it is going to be really loooooooooong",
-                time: "13 min ago",
+                time: "Jan 3",
                 likes: '13',
               ),
-              MoodTile(
+              PublicMoodTile(
                 mood: "😁",
                 text:
                     "Hi this is very long test mood sentences. It's to describe my emotion today and what I did today and it is going to be really loooooooooong",
-                time: "13 min ago",
+                time: "Jan 3",
                 likes: '13',
               ),
-              MoodTile(
+              PublicMoodTile(
                 mood: "😁",
                 text:
                     "Hi this is very long test mood sentences. It's to describe my emotion today and what I did today and it is going to be really loooooooooong",
-                time: "13 min ago",
+                time: "Jan 3",
                 likes: '13',
               ),
             ],

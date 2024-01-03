@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class MoodTile extends ConsumerStatefulWidget {
+class PublicMoodTile extends ConsumerStatefulWidget {
   final String mood;
   final String text;
   final String time;
   final String likes;
-  const MoodTile({
+  const PublicMoodTile({
     required this.mood,
     required this.text,
     required this.time,
@@ -21,7 +21,7 @@ class MoodTile extends ConsumerStatefulWidget {
   ConsumerState<ConsumerStatefulWidget> createState() => _MoodTileState();
 }
 
-class _MoodTileState extends ConsumerState<MoodTile> {
+class _MoodTileState extends ConsumerState<PublicMoodTile> {
   bool isLiked = false;
   bool _expandText = false;
   @override
@@ -56,6 +56,7 @@ class _MoodTileState extends ConsumerState<MoodTile> {
                 ),
                 Expanded(
                   child: Slider(
+                    allowedInteraction: SliderInteraction.tapOnly,
                     value: 0.5,
                     onChanged: (value) {},
                   ),
@@ -79,7 +80,7 @@ class _MoodTileState extends ConsumerState<MoodTile> {
               ),
             ),
           ),
-          Gaps.v9,
+          Gaps.v20,
           Opacity(
             opacity: 0.6,
             child: Row(
@@ -112,6 +113,7 @@ class _MoodTileState extends ConsumerState<MoodTile> {
                             ? FontAwesomeIcons.solidHeart
                             : FontAwesomeIcons.heart,
                         size: Sizes.size18,
+                        color: isLiked ? Colors.pink : Colors.black,
                       ),
                     ),
                   ],
