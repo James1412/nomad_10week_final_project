@@ -43,11 +43,24 @@ class _MoodTileState extends ConsumerState<MoodTile> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Gaps.v10,
-          Text(
-            "Mood: ${widget.mood}",
-            style: const TextStyle(
-              fontWeight: FontWeight.w600,
-              fontSize: Sizes.size24,
+          SizedBox(
+            width: MediaQuery.of(context).size.width,
+            child: Row(
+              children: [
+                Text(
+                  "Mood: ${widget.mood}",
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: Sizes.size20,
+                  ),
+                ),
+                Expanded(
+                  child: Slider(
+                    value: 0.5,
+                    onChanged: (value) {},
+                  ),
+                ),
+              ],
             ),
           ),
           Gaps.v5,

@@ -23,7 +23,7 @@ class _PrivateMoodState extends ConsumerState<PrivateMoodScreen> {
                 context.push(SettingsScreen.routeUrl);
               },
               icon: const Icon(
-                FontAwesomeIcons.gear,
+                FontAwesomeIcons.bars,
               ),
             ),
           ],

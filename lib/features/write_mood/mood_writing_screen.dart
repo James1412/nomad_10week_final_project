@@ -159,9 +159,7 @@ class _MoodWritingScreenState extends ConsumerState<MoodWritingScreen> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              Slider.adaptive(
-                thumbColor: Colors.black,
-                activeColor: Colors.black,
+              Slider(
                 value: moodLevel,
                 onChanged: (value) {
                   setState(() {
@@ -189,7 +187,7 @@ class _MoodWritingScreenState extends ConsumerState<MoodWritingScreen> {
                       width: 1,
                     ),
                     borderRadius: BorderRadius.circular(Sizes.size10),
-                    color: Colors.white30,
+                    color: Theme.of(context).primaryColor,
                   ),
                   child: const Center(
                     child: Text(
@@ -214,7 +212,7 @@ class _MoodWritingScreenState extends ConsumerState<MoodWritingScreen> {
                       width: 1,
                     ),
                     borderRadius: BorderRadius.circular(Sizes.size10),
-                    color: Colors.black.withOpacity(0.3),
+                    color: Colors.white,
                   ),
                   child: const Center(
                     child: Text(

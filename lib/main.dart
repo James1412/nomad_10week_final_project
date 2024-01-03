@@ -4,6 +4,7 @@ import 'package:final_project/routes.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,12 +23,23 @@ class MoodTrackerApp extends ConsumerWidget {
       routerConfig: ref.watch(routerProvider),
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        primaryColor: Colors.lightBlue.shade100,
+        textTheme: GoogleFonts.robotoSlabTextTheme(Theme.of(context).textTheme),
+        sliderTheme: SliderThemeData(
+          thumbColor: Colors.lightBlue.shade100,
+          activeTrackColor: Colors.lightBlue.shade100,
+          inactiveTrackColor: Colors.lightBlue.shade50,
+        ),
         scaffoldBackgroundColor: Colors.white,
-        appBarTheme: const AppBarTheme(
-          elevation: 1,
-          color: Color.fromARGB(255, 255, 244, 227),
+        appBarTheme: AppBarTheme(
+          color: Colors.lightBlue.shade100,
           shadowColor: Colors.transparent,
-          surfaceTintColor: Colors.black,
+          surfaceTintColor: Colors.transparent,
+          titleTextStyle: const TextStyle(
+            fontWeight: FontWeight.w700,
+            color: Colors.black,
+            fontSize: Sizes.size20,
+          ),
         ),
         bottomAppBarTheme: const BottomAppBarTheme(
           color: Colors.transparent,

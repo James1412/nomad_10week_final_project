@@ -60,13 +60,9 @@ class _MainNavigationScreenState extends ConsumerState<MainNavigationScreen> {
         ],
       ),
       bottomNavigationBar: BottomAppBar(
-        elevation: 5,
-        surfaceTintColor: Colors.black,
-        padding: const EdgeInsets.only(
-          top: Sizes.size20,
-        ),
+        height: Sizes.size44,
+        padding: const EdgeInsets.only(),
         child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisSize: MainAxisSize.max,
           children: [
             Expanded(
