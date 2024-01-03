@@ -12,8 +12,6 @@ class PublicMoodScreen extends ConsumerStatefulWidget {
 }
 
 class _PublicMoodScreenState extends ConsumerState<PublicMoodScreen> {
-  final ScrollController _controller = ScrollController();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

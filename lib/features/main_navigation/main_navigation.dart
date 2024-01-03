@@ -60,7 +60,6 @@ class _MainNavigationScreenState extends ConsumerState<MainNavigationScreen> {
         ],
       ),
       bottomNavigationBar: BottomAppBar(
-        height: Sizes.size52,
         elevation: 5,
         surfaceTintColor: Colors.black,
         padding: const EdgeInsets.only(
