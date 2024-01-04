@@ -1,4 +1,5 @@
 import 'package:final_project/features/authentication/repos/authentication_repository.dart';
+import 'package:final_project/features/dark_mode/view_models/dark_mode_config_view_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -27,8 +28,10 @@ class SettingsScreen extends ConsumerWidget {
               "Dark mode",
               style: TextStyle(),
             ),
-            value: true,
-            onChanged: (value) {},
+            value: ref.watch(darkmodeConfigProvider).darkMode,
+            onChanged: (value) {
+              ref.read(darkmodeConfigProvider.notifier).setDarkMode(value);
+            },
           ),
           ListTile(
             title: const Text(
