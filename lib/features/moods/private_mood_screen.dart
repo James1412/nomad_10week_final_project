@@ -8,14 +8,14 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 
 class PrivateMoodScreen extends ConsumerStatefulWidget {
-  const PrivateMoodScreen({super.key});
+  final ScrollController scrollController;
+  const PrivateMoodScreen({required this.scrollController, super.key});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _PrivateMoodState();
 }
 
 class _PrivateMoodState extends ConsumerState<PrivateMoodScreen> {
-  final _controller = ScrollController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,9 +38,9 @@ class _PrivateMoodState extends ConsumerState<PrivateMoodScreen> {
           await Future.delayed(const Duration(seconds: 2));
         },
         child: Scrollbar(
-          controller: _controller,
+          controller: widget.scrollController,
           child: ListView(
-            controller: _controller,
+            controller: widget.scrollController,
             children: const [
               Column(
                 children: [

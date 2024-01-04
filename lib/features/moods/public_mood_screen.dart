@@ -1,10 +1,10 @@
-import 'package:final_project/features/moods/view_models/auto_scroll_up_vm.dart';
 import 'package:final_project/features/moods/widgets/public_mood_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class PublicMoodScreen extends ConsumerStatefulWidget {
-  const PublicMoodScreen({super.key});
+  final ScrollController scrollController;
+  const PublicMoodScreen({required this.scrollController, super.key});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
@@ -24,11 +24,9 @@ class _PublicMoodScreenState extends ConsumerState<PublicMoodScreen> {
           await Future.delayed(const Duration(seconds: 2));
         },
         child: Scrollbar(
-          controller:
-              ref.watch(scrollControllerNotifierProvider).scrollController,
+          controller: widget.scrollController,
           child: ListView(
-            controller:
-                ref.watch(scrollControllerNotifierProvider).scrollController,
+            controller: widget.scrollController,
             children: const [
               PublicMoodTile(
                 mood: "😁",
