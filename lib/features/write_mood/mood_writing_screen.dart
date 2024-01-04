@@ -235,7 +235,6 @@ class _MoodWritingScreenState extends ConsumerState<MoodWritingScreen> {
                         width: 1,
                       ),
                       borderRadius: BorderRadius.circular(Sizes.size10),
-                      color: Colors.white,
                     ),
                     child: const Center(
                       child: Text(
