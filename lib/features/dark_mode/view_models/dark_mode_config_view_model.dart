@@ -18,6 +18,7 @@ class DarkModeConfigViewModel extends Notifier<DarkModeConfigModel> {
   }
 }
 
+// in provider, we are exposing DarkModeConfigModel, not repo
 final darkmodeConfigProvider =
     NotifierProvider<DarkModeConfigViewModel, DarkModeConfigModel>(
   () => throw UnimplementedError(),

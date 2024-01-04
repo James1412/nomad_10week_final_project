@@ -3,6 +3,7 @@ import 'package:final_project/features/dark_mode/view_models/dark_mode_config_vi
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 
 class SettingsScreen extends ConsumerWidget {
@@ -38,6 +39,9 @@ class SettingsScreen extends ConsumerWidget {
               "Log out",
               style: TextStyle(),
             ),
+            trailing: const Icon(
+              FontAwesomeIcons.rightFromBracket,
+            ),
             onTap: () {
               showCupertinoDialog(
                 context: context,
@@ -49,11 +53,9 @@ class SettingsScreen extends ConsumerWidget {
                         onPressed: () {
                           Navigator.of(context).pop(context);
                         },
-                        child: const Text(
+                        child: Text(
                           "No",
-                          style: TextStyle(
-                            color: Colors.black,
-                          ),
+                          style: TextStyle(color: Colors.grey.shade500),
                         ),
                       ),
                       CupertinoDialogAction(

@@ -16,6 +16,7 @@ class EditMoodScreen extends ConsumerStatefulWidget {
 class _MoodWritingScreenState extends ConsumerState<EditMoodScreen> {
   final TextEditingController _controller = TextEditingController();
   double moodLevel = 0;
+  bool isIconTap = false;
   List<List<dynamic>> emojis = [
     ["😁", false],
     ["😍", false],
@@ -32,6 +33,7 @@ class _MoodWritingScreenState extends ConsumerState<EditMoodScreen> {
       element[1] = false;
     }
     emojis[index][1] = !emojis[index][1];
+    isIconTap = true;
     setState(() {});
   }
 
@@ -95,7 +97,7 @@ class _MoodWritingScreenState extends ConsumerState<EditMoodScreen> {
                 "delete",
                 style: TextStyle(
                   color: Colors.red,
-                  fontWeight: FontWeight.w700,
+                  fontWeight: FontWeight.w800,
                 ),
               ),
             ),
@@ -210,22 +212,26 @@ class _MoodWritingScreenState extends ConsumerState<EditMoodScreen> {
               // Public post
               GestureDetector(
                 onTap: _onPostPublicTap,
-                child: Container(
-                  width: MediaQuery.of(context).size.width * 0.4,
-                  height: MediaQuery.of(context).size.height * 0.06,
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      width: 1,
+                child: AnimatedOpacity(
+                  opacity: isIconTap ? 1 : 0.5,
+                  duration: const Duration(milliseconds: 300),
+                  child: Container(
+                    width: MediaQuery.of(context).size.width * 0.4,
+                    height: MediaQuery.of(context).size.height * 0.06,
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        width: 1,
+                      ),
+                      borderRadius: BorderRadius.circular(Sizes.size10),
+                      color: Theme.of(context).primaryColor,
                     ),
-                    borderRadius: BorderRadius.circular(Sizes.size10),
-                    color: Theme.of(context).primaryColor,
-                  ),
-                  child: const Center(
-                    child: Text(
-                      "Public post",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: Sizes.size16,
+                    child: const Center(
+                      child: Text(
+                        "Public post",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: Sizes.size16,
+                        ),
                       ),
                     ),
                   ),
@@ -233,22 +239,25 @@ class _MoodWritingScreenState extends ConsumerState<EditMoodScreen> {
               ),
               GestureDetector(
                 onTap: _onPostPublicTap,
-                child: Container(
-                  width: MediaQuery.of(context).size.width * 0.4,
-                  height: MediaQuery.of(context).size.height * 0.06,
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      width: 1,
+                child: AnimatedOpacity(
+                  opacity: isIconTap ? 1 : 0.5,
+                  duration: const Duration(milliseconds: 300),
+                  child: Container(
+                    width: MediaQuery.of(context).size.width * 0.4,
+                    height: MediaQuery.of(context).size.height * 0.06,
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        width: 1,
+                      ),
+                      borderRadius: BorderRadius.circular(Sizes.size10),
                     ),
-                    borderRadius: BorderRadius.circular(Sizes.size10),
-                    color: Colors.white,
-                  ),
-                  child: const Center(
-                    child: Text(
-                      "Private post",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: Sizes.size16,
+                    child: const Center(
+                      child: Text(
+                        "Private post",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: Sizes.size16,
+                        ),
                       ),
                     ),
                   ),

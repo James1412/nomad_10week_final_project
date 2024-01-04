@@ -125,7 +125,7 @@ class _MoodTileState extends ConsumerState<PrivateMoodTile> {
                             ? FontAwesomeIcons.solidHeart
                             : FontAwesomeIcons.heart,
                         size: Sizes.size18,
-                        color: isLiked ? Colors.pink : Colors.black,
+                        color: isLiked ? Colors.pink : null,
                       ),
                     ],
                   ),
