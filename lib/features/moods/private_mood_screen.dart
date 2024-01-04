@@ -1,8 +1,6 @@
 import 'package:final_project/constants/gaps.dart';
 import 'package:final_project/constants/sizes.dart';
-import 'package:final_project/features/moods/view_models/auto_scroll_up_vm.dart';
 import 'package:final_project/features/moods/widgets/private_mood_tile.dart';
-import 'package:final_project/features/moods/widgets/public_mood_tile.dart';
 import 'package:final_project/features/setting/settings_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

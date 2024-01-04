@@ -47,12 +47,22 @@ class _MoodTileState extends ConsumerState<PublicMoodTile> {
             width: MediaQuery.of(context).size.width,
             child: Row(
               children: [
-                Text(
-                  "Mood: ${widget.mood}",
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: Sizes.size20,
-                  ),
+                Row(
+                  children: [
+                    const Text(
+                      "Mood: ",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: Sizes.size20,
+                      ),
+                    ),
+                    Text(
+                      widget.mood,
+                      style: const TextStyle(
+                        fontSize: Sizes.size24,
+                      ),
+                    ),
+                  ],
                 ),
                 Expanded(
                   child: Slider(
@@ -93,30 +103,30 @@ class _MoodTileState extends ConsumerState<PublicMoodTile> {
                     fontSize: Sizes.size14,
                   ),
                 ),
-                Row(
-                  children: [
-                    Text(
-                      widget.likes,
-                      style: const TextStyle(
-                        fontSize: Sizes.size16,
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      isLiked = !isLiked;
+                    });
+                  },
+                  child: Row(
+                    children: [
+                      Text(
+                        widget.likes,
+                        style: const TextStyle(
+                          fontSize: Sizes.size16,
+                        ),
                       ),
-                    ),
-                    Gaps.h7,
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          isLiked = !isLiked;
-                        });
-                      },
-                      child: Icon(
+                      Gaps.h7,
+                      Icon(
                         isLiked
                             ? FontAwesomeIcons.solidHeart
                             : FontAwesomeIcons.heart,
                         size: Sizes.size18,
                         color: isLiked ? Colors.pink : Colors.black,
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ],
             ),
