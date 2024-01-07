@@ -1,6 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:final_project/constants/gaps.dart';
 import 'package:final_project/constants/sizes.dart';
+import 'package:final_project/features/authentication/repos/authentication_repository.dart';
+import 'package:final_project/features/write_mood/models/mood_tile_model.dart';
+import 'package:final_project/features/write_mood/repos/mood_tile_repo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -26,6 +30,8 @@ class _MoodWritingScreenState extends ConsumerState<MoodWritingScreen> {
     ["🫠", false],
     ["🤮", false],
   ];
+  String selectedEmoji = "";
+  final MoodTileRepository _moodTileRepo = MoodTileRepository();
 
   void onIconTap(int index) {
     for (var element in emojis) {
@@ -33,6 +39,7 @@ class _MoodWritingScreenState extends ConsumerState<MoodWritingScreen> {
     }
     emojis[index][1] = !emojis[index][1];
     isIconTap = true;
+    selectedEmoji = emojis[index][0];
     setState(() {});
   }
 
@@ -61,14 +68,15 @@ class _MoodWritingScreenState extends ConsumerState<MoodWritingScreen> {
     );
   }
 
-  void _onPostPublicTap() {
+  Future<void> _postTap(bool isPublic) async {
+    // check if an emoji is selected
     bool emojiSelected = false;
-    _controller.clear();
     for (var emoji in emojis) {
       if (emoji[1] == true) {
         emojiSelected = true;
       }
     }
+    // show snackbar if not
     if (emojiSelected == false) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -76,6 +84,37 @@ class _MoodWritingScreenState extends ConsumerState<MoodWritingScreen> {
         ),
       );
     }
+
+    // add to firebase
+    await _moodTileRepo.addMood(
+      MoodTileModel(
+        isPublic: isPublic,
+        creatorUid: ref.watch(authRepo).user!.uid,
+        text: _controller.text,
+        emoji: selectedEmoji,
+        scale: moodLevel,
+        time: Timestamp.now(),
+        likes: 0,
+      ),
+    );
+
+    // reset the emoji after upload
+    for (var emoji in emojis) {
+      emoji[1] = false;
+    }
+    // reset the texteditingcontroller
+    _controller.clear();
+    moodLevel = 0;
+    isIconTap = false;
+    setState(() {});
+  }
+
+  Future<void> _onPostPublicTap() async {
+    await _postTap(true);
+  }
+
+  Future<void> _onPostPrivateTap() async {
+    await _postTap(false);
   }
 
   @override
@@ -223,7 +262,7 @@ class _MoodWritingScreenState extends ConsumerState<MoodWritingScreen> {
                 ),
               ),
               GestureDetector(
-                onTap: _onPostPublicTap,
+                onTap: _onPostPrivateTap,
                 child: AnimatedOpacity(
                   opacity: isIconTap ? 1 : 0.5,
                   duration: const Duration(milliseconds: 300),

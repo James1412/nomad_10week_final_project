@@ -95,35 +95,30 @@ class _PrivateMoodState extends ConsumerState<PrivateMoodScreen> {
                 text:
                     "Hi this is very long test mood sentences. It's to describe my emotion today and what I did today and it is going to be really loooooooooong, Hi this is very long test mood sentences. It's to describe my emotion today and what I did today and it is going to be really loooooooooong",
                 time: "Jan 3",
-                likes: '13',
               ),
               PrivateMoodTile(
                 mood: "😁",
                 text:
                     "Hi this is very long test mood sentences. It's to describe my emotion today and what I did today and it is going to be really loooooooooong, Hi this is very long test mood sentences. It's to describe my emotion today and what I did today and it is going to be really loooooooooong",
                 time: "Jan 3",
-                likes: '13',
               ),
               PrivateMoodTile(
                 mood: "😁",
                 text:
                     "Hi this is very long test mood sentences. It's to describe my emotion today and what I did today and it is going to be really loooooooooong, Hi this is very long test mood sentences. It's to describe my emotion today and what I did today and it is going to be really loooooooooong",
                 time: "Jan 3",
-                likes: '13',
               ),
               PrivateMoodTile(
                 mood: "😁",
                 text:
                     "Hi this is very long test mood sentences. It's to describe my emotion today and what I did today and it is going to be really loooooooooong",
                 time: "Jan 3",
-                likes: '13',
               ),
               PrivateMoodTile(
                 mood: "😁",
                 text:
                     "Hi this is very long test mood sentences. It's to describe my emotion today and what I did today and it is going to be really loooooooooong",
                 time: "Jan 3",
-                likes: '13',
               ),
             ],
           ),

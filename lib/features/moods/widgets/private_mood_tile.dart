@@ -1,21 +1,19 @@
 import 'package:final_project/constants/gaps.dart';
 import 'package:final_project/constants/sizes.dart';
+import 'package:final_project/features/dark_mode/view_models/dark_mode_config_view_model.dart';
 import 'package:final_project/features/write_mood/edit_mood_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 
 class PrivateMoodTile extends ConsumerStatefulWidget {
   final String mood;
   final String text;
   final String time;
-  final String likes;
   const PrivateMoodTile({
     required this.mood,
     required this.text,
     required this.time,
-    required this.likes,
     super.key,
   });
 
@@ -24,7 +22,6 @@ class PrivateMoodTile extends ConsumerStatefulWidget {
 }
 
 class _MoodTileState extends ConsumerState<PrivateMoodTile> {
-  bool isLiked = false;
   bool _expandText = false;
   @override
   Widget build(BuildContext context) {
@@ -33,11 +30,13 @@ class _MoodTileState extends ConsumerState<PrivateMoodTile> {
         vertical: Sizes.size10,
         horizontal: Sizes.size10,
       ),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         border: Border(
           bottom: BorderSide(
             width: 0.2,
-            color: Colors.black38,
+            color: ref.watch(darkmodeConfigProvider).darkMode
+                ? Colors.white30
+                : Colors.black38,
           ),
         ),
       ),
@@ -105,44 +104,21 @@ class _MoodTileState extends ConsumerState<PrivateMoodTile> {
                     fontSize: Sizes.size14,
                   ),
                 ),
-                GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      isLiked = !isLiked;
-                    });
-                  },
-                  child: Row(
-                    children: [
-                      Text(
-                        widget.likes,
-                        style: const TextStyle(
-                          fontSize: Sizes.size16,
-                        ),
-                      ),
-                      Gaps.h7,
-                      Icon(
-                        isLiked
-                            ? FontAwesomeIcons.solidHeart
-                            : FontAwesomeIcons.heart,
-                        size: Sizes.size18,
-                        color: isLiked ? Colors.pink : null,
-                      ),
-                    ],
-                  ),
+                Row(
+                  children: [
+                    Gaps.h7,
+                    GestureDetector(
+                      onTap: () {
+                        context.push(EditMoodScreen.routeUrl);
+                      },
+                      child: const Text("Edit"),
+                    ),
+                  ],
                 ),
               ],
             ),
           ),
           Gaps.v10,
-          Align(
-            alignment: Alignment.centerRight,
-            child: GestureDetector(
-              onTap: () {
-                context.push(EditMoodScreen.routeUrl);
-              },
-              child: const Text("Edit"),
-            ),
-          ),
         ],
       ),
     );

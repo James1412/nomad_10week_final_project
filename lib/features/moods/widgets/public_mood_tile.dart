@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:final_project/constants/gaps.dart';
 import 'package:final_project/constants/sizes.dart';
+import 'package:final_project/features/dark_mode/view_models/dark_mode_config_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -7,9 +9,11 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 class PublicMoodTile extends ConsumerStatefulWidget {
   final String mood;
   final String text;
-  final String time;
-  final String likes;
+  final Timestamp time;
+  final int likes;
+  final double scale;
   const PublicMoodTile({
+    required this.scale,
     required this.mood,
     required this.text,
     required this.time,
@@ -31,11 +35,13 @@ class _MoodTileState extends ConsumerState<PublicMoodTile> {
         vertical: Sizes.size10,
         horizontal: Sizes.size10,
       ),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         border: Border(
           bottom: BorderSide(
             width: 0.2,
-            color: Colors.black38,
+            color: ref.watch(darkmodeConfigProvider).darkMode
+                ? Colors.white30
+                : Colors.black38,
           ),
         ),
       ),
@@ -67,7 +73,7 @@ class _MoodTileState extends ConsumerState<PublicMoodTile> {
                 Expanded(
                   child: Slider(
                     allowedInteraction: SliderInteraction.tapOnly,
-                    value: 0.5,
+                    value: widget.scale,
                     onChanged: (value) {},
                   ),
                 ),
@@ -98,7 +104,7 @@ class _MoodTileState extends ConsumerState<PublicMoodTile> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  widget.time,
+                  widget.time.toDate().toString().split(' ')[0],
                   style: const TextStyle(
                     fontSize: Sizes.size14,
                   ),
@@ -112,7 +118,7 @@ class _MoodTileState extends ConsumerState<PublicMoodTile> {
                   child: Row(
                     children: [
                       Text(
-                        widget.likes,
+                        widget.likes.toString(),
                         style: const TextStyle(
                           fontSize: Sizes.size16,
                         ),
