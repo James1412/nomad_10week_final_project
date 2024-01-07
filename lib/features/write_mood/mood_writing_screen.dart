@@ -32,6 +32,7 @@ class _MoodWritingScreenState extends ConsumerState<MoodWritingScreen> {
   ];
   String selectedEmoji = "";
   final MoodTileRepository _moodTileRepo = MoodTileRepository();
+  bool emojiSelected = false;
 
   void onIconTap(int index) {
     for (var element in emojis) {
@@ -60,6 +61,7 @@ class _MoodWritingScreenState extends ConsumerState<MoodWritingScreen> {
                 }
                 emojis.add([emoji.emoji, true]);
                 isIconTap = true;
+                selectedEmoji = emoji.emoji;
               });
               Navigator.of(context).pop();
             },
@@ -71,10 +73,10 @@ class _MoodWritingScreenState extends ConsumerState<MoodWritingScreen> {
 
   Future<void> _postTap(bool isPublic) async {
     // check if an emoji is selected
-    bool emojiSelected = false;
     for (var emoji in emojis) {
       if (emoji[1] == true) {
         emojiSelected = true;
+        setState(() {});
       }
     }
     // show snackbar if not

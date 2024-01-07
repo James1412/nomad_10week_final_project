@@ -31,7 +31,6 @@ class _MainNavigationScreenState extends ConsumerState<MainNavigationScreen> {
   final ScrollController _privateScrollController = ScrollController();
 
   Future<void> onTap(int index) async {
-    context.go("/${_tabs[index]}");
     // Tap on page 1 when user is on page 1
     if (index == 0 && _selectedIndex == 0) {
       //scroll up
@@ -52,6 +51,8 @@ class _MainNavigationScreenState extends ConsumerState<MainNavigationScreen> {
           curve: Curves.elasticInOut,
         );
       }
+    } else {
+      context.go("/${_tabs[index]}");
     }
     setState(() {
       _selectedIndex = index;
