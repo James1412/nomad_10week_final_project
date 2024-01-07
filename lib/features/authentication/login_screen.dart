@@ -1,5 +1,6 @@
 import 'package:final_project/constants/gaps.dart';
 import 'package:final_project/constants/sizes.dart';
+import 'package:final_project/features/authentication/forgot_password_screen.dart';
 import 'package:final_project/features/authentication/view_models/login_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -106,6 +107,23 @@ class SignupScreenState extends ConsumerState<LoginScreen> {
                       _formData['password'] = newValue.toString();
                     }
                   },
+                ),
+                Gaps.v10,
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const ForgotPasswordPage(),
+                      ));
+                    },
+                    child: const Text(
+                      "Forgot password",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
                 ),
               ],
             ),
