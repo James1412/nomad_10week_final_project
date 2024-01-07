@@ -35,7 +35,11 @@ class _MoodTileState extends ConsumerState<PublicMoodTile> {
   @override
   void initState() {
     super.initState();
-    isLiked = widget.likes.contains(FirebaseAuth.instance.currentUser!.uid);
+    if (FirebaseAuth.instance.currentUser != null) {
+      isLiked = widget.likes.contains(FirebaseAuth.instance.currentUser!.uid);
+    } else {
+      isLiked = false;
+    }
   }
 
   void toggleLike() {
@@ -119,7 +123,7 @@ class _MoodTileState extends ConsumerState<PublicMoodTile> {
             },
             child: Text(
               widget.text,
-              maxLines: _expandText ? null : 2,
+              maxLines: _expandText ? null : 4,
               overflow: _expandText ? null : TextOverflow.ellipsis,
               style: const TextStyle(
                 fontSize: Sizes.size18,

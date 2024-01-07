@@ -59,6 +59,7 @@ class _MoodWritingScreenState extends ConsumerState<MoodWritingScreen> {
                   element[1] = false;
                 }
                 emojis.add([emoji.emoji, true]);
+                isIconTap = true;
               });
               Navigator.of(context).pop();
             },
@@ -83,6 +84,7 @@ class _MoodWritingScreenState extends ConsumerState<MoodWritingScreen> {
           content: Text("Please select an emoji"),
         ),
       );
+      return;
     }
 
     // add to firebase

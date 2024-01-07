@@ -35,19 +35,23 @@ class _MainNavigationScreenState extends ConsumerState<MainNavigationScreen> {
     // Tap on page 1 when user is on page 1
     if (index == 0 && _selectedIndex == 0) {
       //scroll up
-      await _publicScrollController.animateTo(
-        0,
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.elasticInOut,
-      );
+      if (_publicScrollController.hasClients) {
+        await _publicScrollController.animateTo(
+          0,
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.elasticInOut,
+        );
+      }
     }
     // Tap on page 3 when user is on page 3
     else if (index == 2 && _selectedIndex == 2) {
-      await _privateScrollController.animateTo(
-        0,
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.elasticInOut,
-      );
+      if (_privateScrollController.hasClients) {
+        await _privateScrollController.animateTo(
+          0,
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.elasticInOut,
+        );
+      }
     }
     setState(() {
       _selectedIndex = index;

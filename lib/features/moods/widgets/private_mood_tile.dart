@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 
 class PrivateMoodTile extends ConsumerStatefulWidget {
   final String mood;
@@ -38,7 +39,12 @@ class _MoodTileState extends ConsumerState<PrivateMoodTile> {
   @override
   void initState() {
     super.initState();
-    isLiked = widget.likes.contains(FirebaseAuth.instance.currentUser!.uid);
+    if (FirebaseAuth.instance.currentUser != null) {
+      isLiked = widget.likes.contains(FirebaseAuth.instance.currentUser!.uid);
+    } else {
+      isLiked = false;
+    }
+    setState(() {});
   }
 
   void toggleLike() {
@@ -67,11 +73,15 @@ class _MoodTileState extends ConsumerState<PrivateMoodTile> {
         .doc(widget.moodId)
         .delete()
         .then((value) async {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text("Successfully deleted the post!"),
-        ),
-      );
+      try {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text("Successfully deleted the post!"),
+          ),
+        );
+      } catch (e) {
+        print(e);
+      }
     }).catchError((error) async {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -82,7 +92,7 @@ class _MoodTileState extends ConsumerState<PrivateMoodTile> {
     if (!mounted) {
       return;
     }
-    Navigator.of(context).pop();
+    context.pop();
   }
 
   @override
@@ -146,7 +156,7 @@ class _MoodTileState extends ConsumerState<PrivateMoodTile> {
             },
             child: Text(
               widget.text,
-              maxLines: _expandText ? null : 2,
+              maxLines: _expandText ? null : 4,
               overflow: _expandText ? null : TextOverflow.ellipsis,
               style: const TextStyle(
                 fontSize: Sizes.size18,
@@ -207,7 +217,7 @@ class _MoodTileState extends ConsumerState<PrivateMoodTile> {
                           textStyle: const TextStyle(color: Colors.blue),
                           child: const Text("No"),
                           onPressed: () {
-                            Navigator.of(context).pop();
+                            context.pop();
                           },
                         ),
                         CupertinoDialogAction(

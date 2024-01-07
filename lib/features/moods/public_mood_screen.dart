@@ -15,6 +15,12 @@ class PublicMoodScreen extends ConsumerStatefulWidget {
 
 class _PublicMoodScreenState extends ConsumerState<PublicMoodScreen> {
   @override
+  void dispose() {
+    widget.scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
