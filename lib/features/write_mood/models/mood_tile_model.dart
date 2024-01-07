@@ -6,7 +6,7 @@ class MoodTileModel {
   final double scale;
   final Timestamp time;
   final String creatorUid;
-  final int likes;
+  final List likes;
   final bool isPublic;
 
   MoodTileModel({

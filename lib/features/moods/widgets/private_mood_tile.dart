@@ -1,19 +1,29 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:final_project/constants/gaps.dart';
 import 'package:final_project/constants/sizes.dart';
 import 'package:final_project/features/dark_mode/view_models/dark_mode_config_view_model.dart';
-import 'package:final_project/features/write_mood/edit_mood_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class PrivateMoodTile extends ConsumerStatefulWidget {
   final String mood;
   final String text;
-  final String time;
+  final Timestamp time;
+  final List likes;
+  final double scale;
+  final String moodId;
+  final bool isPublic;
   const PrivateMoodTile({
+    required this.isPublic,
+    required this.moodId,
+    required this.scale,
     required this.mood,
     required this.text,
     required this.time,
+    required this.likes,
     super.key,
   });
 
@@ -22,7 +32,59 @@ class PrivateMoodTile extends ConsumerStatefulWidget {
 }
 
 class _MoodTileState extends ConsumerState<PrivateMoodTile> {
+  late bool isLiked;
   bool _expandText = false;
+
+  @override
+  void initState() {
+    super.initState();
+    isLiked = widget.likes.contains(FirebaseAuth.instance.currentUser!.uid);
+  }
+
+  void toggleLike() {
+    setState(() {
+      isLiked = !isLiked;
+    });
+
+    DocumentReference moodRef =
+        FirebaseFirestore.instance.collection('moods').doc(widget.moodId);
+
+    if (isLiked) {
+      moodRef.update({
+        'likes': FieldValue.arrayUnion([FirebaseAuth.instance.currentUser!.uid])
+      });
+    } else {
+      moodRef.update({
+        'likes':
+            FieldValue.arrayRemove([FirebaseAuth.instance.currentUser!.uid])
+      });
+    }
+  }
+
+  void deletePost(BuildContext context) {
+    FirebaseFirestore.instance
+        .collection('moods')
+        .doc(widget.moodId)
+        .delete()
+        .then((value) async {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Successfully deleted the post!"),
+        ),
+      );
+    }).catchError((error) async {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Sorry, failed to delete the post. $error has raised"),
+        ),
+      );
+    });
+    if (!mounted) {
+      return;
+    }
+    Navigator.of(context).pop();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -68,7 +130,7 @@ class _MoodTileState extends ConsumerState<PrivateMoodTile> {
                 Expanded(
                   child: Slider(
                     allowedInteraction: SliderInteraction.tapOnly,
-                    value: 0.5,
+                    value: widget.scale,
                     onChanged: (value) {},
                   ),
                 ),
@@ -99,26 +161,73 @@ class _MoodTileState extends ConsumerState<PrivateMoodTile> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  widget.time,
+                  widget.time.toDate().toString().split(' ')[0],
                   style: const TextStyle(
                     fontSize: Sizes.size14,
                   ),
                 ),
-                Row(
-                  children: [
-                    Gaps.h7,
-                    GestureDetector(
-                      onTap: () {
-                        context.push(EditMoodScreen.routeUrl);
-                      },
-                      child: const Text("Edit"),
-                    ),
-                  ],
+                GestureDetector(
+                  onTap: toggleLike,
+                  child: Row(
+                    children: [
+                      Text(
+                        widget.likes.length.toString(),
+                        style: const TextStyle(
+                          fontSize: Sizes.size16,
+                        ),
+                      ),
+                      Gaps.h7,
+                      Icon(
+                        isLiked
+                            ? FontAwesomeIcons.solidHeart
+                            : FontAwesomeIcons.heart,
+                        size: Sizes.size18,
+                        color: isLiked ? Colors.pink : null,
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
           ),
           Gaps.v10,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(widget.isPublic ? "Public post" : "Private post"),
+              GestureDetector(
+                onTap: () {
+                  showCupertinoDialog(
+                    context: context,
+                    builder: (context) => CupertinoAlertDialog(
+                      title: const Text("Delete the post"),
+                      content: const Text("Are you sure?"),
+                      actions: [
+                        CupertinoDialogAction(
+                          textStyle: const TextStyle(color: Colors.blue),
+                          child: const Text("No"),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                        CupertinoDialogAction(
+                          onPressed: () => deletePost(context),
+                          isDestructiveAction: true,
+                          child: const Text("Yes"),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+                child: const Text(
+                  "Delete",
+                  style: TextStyle(
+                    color: Colors.red,
+                  ),
+                ),
+              ),
+            ],
+          ),
         ],
       ),
     );

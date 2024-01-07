@@ -1,5 +1,5 @@
 import 'package:final_project/constants/sizes.dart';
-import 'package:final_project/features/moods/private_mood_screen.dart';
+import 'package:final_project/features/moods/my_moods_screen.dart';
 import 'package:final_project/features/moods/public_mood_screen.dart';
 import 'package:final_project/features/main_navigation/widgets/nav_tab.dart';
 import 'package:final_project/features/write_mood/mood_writing_screen.dart';

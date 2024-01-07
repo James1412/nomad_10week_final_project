@@ -4,7 +4,6 @@ import 'package:final_project/features/authentication/signup_screen.dart';
 import 'package:final_project/features/authentication/start_screen.dart';
 import 'package:final_project/features/main_navigation/main_navigation.dart';
 import 'package:final_project/features/setting/settings_screen.dart';
-import 'package:final_project/features/write_mood/edit_mood_screen.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -47,10 +46,6 @@ final routerProvider = Provider(
             final tab = state.params["tab"]!;
             return MainNavigationScreen(tab: tab);
           },
-        ),
-        GoRoute(
-          path: EditMoodScreen.routeUrl,
-          builder: (context, state) => const EditMoodScreen(),
         ),
       ],
     );

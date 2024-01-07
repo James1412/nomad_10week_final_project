@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:final_project/constants/gaps.dart';
 import 'package:final_project/constants/sizes.dart';
 import 'package:final_project/features/dark_mode/view_models/dark_mode_config_view_model.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -10,9 +11,11 @@ class PublicMoodTile extends ConsumerStatefulWidget {
   final String mood;
   final String text;
   final Timestamp time;
-  final int likes;
+  final List likes;
   final double scale;
+  final String moodId;
   const PublicMoodTile({
+    required this.moodId,
     required this.scale,
     required this.mood,
     required this.text,
@@ -26,8 +29,35 @@ class PublicMoodTile extends ConsumerStatefulWidget {
 }
 
 class _MoodTileState extends ConsumerState<PublicMoodTile> {
-  bool isLiked = false;
+  late bool isLiked;
   bool _expandText = false;
+
+  @override
+  void initState() {
+    super.initState();
+    isLiked = widget.likes.contains(FirebaseAuth.instance.currentUser!.uid);
+  }
+
+  void toggleLike() {
+    setState(() {
+      isLiked = !isLiked;
+    });
+
+    DocumentReference moodRef =
+        FirebaseFirestore.instance.collection('moods').doc(widget.moodId);
+
+    if (isLiked) {
+      moodRef.update({
+        'likes': FieldValue.arrayUnion([FirebaseAuth.instance.currentUser!.uid])
+      });
+    } else {
+      moodRef.update({
+        'likes':
+            FieldValue.arrayRemove([FirebaseAuth.instance.currentUser!.uid])
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -110,15 +140,11 @@ class _MoodTileState extends ConsumerState<PublicMoodTile> {
                   ),
                 ),
                 GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      isLiked = !isLiked;
-                    });
-                  },
+                  onTap: toggleLike,
                   child: Row(
                     children: [
                       Text(
-                        widget.likes.toString(),
+                        widget.likes.length.toString(),
                         style: const TextStyle(
                           fontSize: Sizes.size16,
                         ),

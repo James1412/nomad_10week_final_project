@@ -94,7 +94,7 @@ class _MoodWritingScreenState extends ConsumerState<MoodWritingScreen> {
         emoji: selectedEmoji,
         scale: moodLevel,
         time: Timestamp.now(),
-        likes: 0,
+        likes: [],
       ),
     );
 
@@ -115,6 +115,12 @@ class _MoodWritingScreenState extends ConsumerState<MoodWritingScreen> {
 
   Future<void> _onPostPrivateTap() async {
     await _postTap(false);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 
   @override

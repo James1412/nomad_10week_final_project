@@ -34,6 +34,12 @@ class _PublicMoodScreenState extends ConsumerState<PublicMoodScreen> {
 
             // when data is empty
             final moods = snapshot.data!.docs;
+            for (var mood in moods.toList()) {
+              if (mood['isPublic'] == false) {
+                moods.remove(mood);
+              }
+            }
+
             if (snapshot.data == null || moods.isEmpty) {
               return const Center(
                 child: Text("No posts... Post something!"),
@@ -48,12 +54,18 @@ class _PublicMoodScreenState extends ConsumerState<PublicMoodScreen> {
                 // get individual post
                 final mood = moods[index];
 
+                for (var mood in moods.toList()) {
+                  if (mood['isPublic'] == false) {
+                    moods.remove(mood);
+                  }
+                }
+
                 // get data from each post
                 String text = mood['text'];
                 String emoji = mood['emoji'];
                 double scale = mood['scale'];
                 Timestamp time = mood['time'];
-                int likes = mood['likes'];
+                List likes = mood['likes'];
 
                 // return tile
                 return PublicMoodTile(
@@ -62,6 +74,7 @@ class _PublicMoodScreenState extends ConsumerState<PublicMoodScreen> {
                   time: time,
                   likes: likes,
                   scale: scale,
+                  moodId: mood.id,
                 );
               },
             );

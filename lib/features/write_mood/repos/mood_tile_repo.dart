@@ -20,6 +20,7 @@ class MoodTileRepository {
       "time": mood.time,
       "creatorUid": mood.creatorUid,
       "likes": mood.likes,
+      "isPublic": mood.isPublic,
     });
   }
 
